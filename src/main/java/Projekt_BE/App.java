@@ -3,12 +3,17 @@
  */
 package Projekt_BE;
 
+import java.util.Scanner;
+
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
-    }
+
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        SchereSteinPapier schereSteinPapier = new SchereSteinPapier();
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println(schereSteinPapier.compareDecisions(scanner.next(),schereSteinPapier.playerTwo()));
+
     }
 }
