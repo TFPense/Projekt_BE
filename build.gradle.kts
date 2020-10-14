@@ -24,11 +24,29 @@ dependencies {
     // This dependency is used by the application.
     implementation("com.google.guava:guava:29.0-jre")
 
+    implementation("org.eclipse.jetty:jetty-util-ajax:9.4.32.v20200930")
+    implementation("org.eclipse.jetty:jetty-server:9.4.32.v20200930")
+
+    implementation("org.json:json:20200518")
     // Use JUnit test framework
     testImplementation("junit:junit:4.13")
+
+
 }
 
 application {
     // Define the main class for the application.
     mainClassName = "Projekt_BE.App"
+}
+
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "Projekt_BE.Main"
+    }
+    from(sourceSets.main.get().output)
+    dependsOn(configurations.runtimeClasspath)
+    from({
+        configurations.runtimeClasspath.get().filter {
+            it.name.endsWith("jar") }.map { zipTree(it) }
+    })
 }
