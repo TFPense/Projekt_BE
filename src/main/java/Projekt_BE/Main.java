@@ -3,6 +3,7 @@
  */
 package Projekt_BE;
 
+import Projekt_BE.web.CorsHandler;
 import Projekt_BE.web.WebServer;
 import Projekt_BE.GameList.GameManager;
 
@@ -15,7 +16,9 @@ public class Main {
         SchereSteinPapier schereSteinPapier = new SchereSteinPapier();
         GameManager gameManager = new GameManager();
 
-        new WebServer(schereSteinPapier, gameManager).startServer();
+        CorsHandler corsHandler = new CorsHandler();
+
+        new WebServer(schereSteinPapier, gameManager, corsHandler).startServer();
 
         //Scanner scanner = new Scanner(System.in);
 

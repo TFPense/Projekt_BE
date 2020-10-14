@@ -11,11 +11,13 @@ public class WebServer {
 
     private final SchereSteinPapier schereSteinPapier;
     private final GameManager gameManager;
+    private final CorsHandler corsHandler;
 
-    public WebServer(SchereSteinPapier ssp, GameManager gameManager) {
+    public WebServer(SchereSteinPapier ssp, GameManager gameManager, CorsHandler corsHandler) {
 
         this.schereSteinPapier = ssp;
         this.gameManager = gameManager;
+        this.corsHandler = corsHandler;
 
 
     }
@@ -23,7 +25,7 @@ public class WebServer {
 
         final ContextHandler ssp = new ContextHandler("/ssp");
         ssp.setAllowNullPathInfo(true);
-        ssp.setHandler(new SchereSteinPapierEndpoint(schereSteinPapier, gameManager));
+        ssp.setHandler(new SchereSteinPapierEndpoint(schereSteinPapier, gameManager, corsHandler));
 
         ContextHandlerCollection handlerCollection= new ContextHandlerCollection(ssp);
 

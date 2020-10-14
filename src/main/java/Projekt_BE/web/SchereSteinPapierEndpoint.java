@@ -16,17 +16,20 @@ public class SchereSteinPapierEndpoint extends AbstractHandler {
 
     private final SchereSteinPapier schereSteinPapier;
     private final GameManager gameManager;
+    private final CorsHandler corsHandler;
 
-    public SchereSteinPapierEndpoint(SchereSteinPapier schereSteinPapier, GameManager gameManager){
+    public SchereSteinPapierEndpoint(SchereSteinPapier schereSteinPapier, GameManager gameManager, CorsHandler corsHandler){
 
         this.schereSteinPapier = schereSteinPapier;
         this.gameManager = gameManager;
+        this.corsHandler = corsHandler;
 
     }
 
     @Override
     public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+        corsHandler.handleCors(response);
         int gameID = 0;
         int playerID = 0;
         String playerDecision = "";
