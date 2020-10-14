@@ -42,8 +42,15 @@ public class SchereSteinPapierEndpoint extends AbstractHandler {
         if(request.getParameter("playerDecision") != null)
             playerDecision = request.getParameter("playerDecision");
 
+
+
         if(gameID != 0 && !gameManager.gameExists(gameID)){
             gameManager.createGame(gameID);
+        }
+        else{
+            decisionPlayerOne = playerDecision;
+            decisionPlayerTwo = schereSteinPapier.playerTwo();
+            gameResolution = schereSteinPapier.compareDecisions(playerDecision, decisionPlayerTwo);
         }
 
         if (    gameID != 0
@@ -52,11 +59,8 @@ public class SchereSteinPapierEndpoint extends AbstractHandler {
                 playerDecision != ""){
             gameManager.addDecisionToPlayerInGame(gameID, playerID, playerDecision);
         }
-        else{
-            throw new IOException("GameManager data request failed");
-        }
 
-        if(gameManager.allPlayerDecisionsPresent(gameID)){
+        if(gameID != 0 && gameManager.allPlayerDecisionsPresent(gameID)){
             String[] gamePlayerDecisions = gameManager.getGameDecisions(gameID);
             decisionPlayerOne = gamePlayerDecisions[0];
             decisionPlayerTwo = gamePlayerDecisions[1];
